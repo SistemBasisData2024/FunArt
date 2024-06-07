@@ -184,7 +184,7 @@ app.post('/content/post', async (req, res) => {
       contentExists = checkResult.rows[0].count > 0;
     }
 
-    // Get the current date and time in GMT+7
+    // Get the current date and time in UTC+7
     const currentDate = moment.tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss');
 
     // Insert the new content into the database
@@ -246,6 +246,28 @@ app.get('/content/:id', async (req, res) => {
     } else {
       // Content with the specified id does not exist
       res.status(404).json({ message: 'Content not found' });
+    }
+  } catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.get('/content/getAllSortByDate', async (req, res) => {
+  try {
+    // Query the database to get all content sorted by updated_at timestamp
+    const query = {
+      text: 'SELECT * FROM content ORDER BY updated_at DESC',
+    };
+
+    const result = await pool.query(query);
+
+    if (result.rows.length > 0) {
+      // Contents found, return the contents
+      res.json(result.rows);
+    } else {
+      // No content found
+      res.status(404).json({ message: 'No content found' });
     }
   } catch (error) {
     console.error('Error executing query', error);
