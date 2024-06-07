@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const moment = require('moment-timezone');
 
 // const accountRepository = require('./repositories/repository.account');
 // const contentRepository = require('./repositories/repository.content');
@@ -183,10 +184,13 @@ app.post('/content/post', async (req, res) => {
       contentExists = checkResult.rows[0].count > 0;
     }
 
+    // Get the current date and time in GMT+7
+    const currentDate = moment.tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss');
+
     // Insert the new content into the database
     const insertQuery = {
-      text: 'INSERT INTO content (content_id, acc_id, content_type, content_desc, tag, likes, comments_id, content_title) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING content_id',
-      values: [content_id, acc_id, content_type, content_desc, tag, 0, null, content_title],
+      text: 'INSERT INTO content (content_id, acc_id, content_type, content_desc, tag, likes, comments_id, content_title, uploaded_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING content_id',
+      values: [content_id, acc_id, content_type, content_desc, tag, 0, null, content_title, currentDate],
     };
 
     const insertResult = await pool.query(insertQuery);
