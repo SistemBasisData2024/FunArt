@@ -124,7 +124,7 @@ app.post('/account/register', async (req, res) => {
     // Insert the new account into the database
     const insertQuery = {
       text: 'INSERT INTO account (acc_id, acc_type, username, password, points, contents_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING acc_id',
-      values: [acc_id, 'registered', username, password, 0, []],
+      values: [acc_id, 'registered', username, password, 0, ['']],
     };
 
     const insertResult = await pool.query(insertQuery);
