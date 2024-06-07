@@ -1,11 +1,23 @@
 // src/components/navbar.jsx
-import React from 'react';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   return (
     <nav style={styles.navbar}>
       <div style={styles.logo}>FunArt</div>
-      <div style={styles.profile}>Profile</div>
+      <div style={styles.menu}>
+        {!user ? (
+          <button onClick={() => navigate('/login/')} style={styles.button}>Login</button>
+        ) : null}
+        <div style={styles.profile}>
+          {user ? `Logged in as: ${user.username}` : 'Loading...'}
+        </div>
+      </div>
     </nav>
   );
 };
@@ -23,9 +35,17 @@ const styles = {
     fontSize: '24px',
     fontWeight: 'bold',
   },
+  menu: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  button: {
+    marginRight: '10px',
+    padding: '5px 10px',
+    cursor: 'pointer',
+  },
   profile: {
     fontSize: '18px',
-    cursor: 'pointer',
   },
 };
 

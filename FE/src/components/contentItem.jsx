@@ -1,9 +1,9 @@
-// src/components/contentItem.jsx
+// src/components/ContentItem.jsx
 import React from 'react';
 
 const ContentItem = ({ content }) => {
   return (
-    <div style={styles.contentItem}>
+    <div style={styles.ContentItem}>
       <img src={content.image} alt={content.title} style={styles.image} />
       <div style={styles.title}>{content.title}</div>
     </div>

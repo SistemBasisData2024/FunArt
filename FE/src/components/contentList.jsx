@@ -1,33 +1,60 @@
-// src/components/contentList.jsx
+// src/components/ContentList.jsx
 import React, { useEffect, useState } from 'react';
-import ContentItem from './contentItem';
 
 const ContentList = () => {
   const [contents, setContents] = useState([]);
 
   useEffect(() => {
-    // Fetch content data from your backend API
-    fetch('/api/content/getAllSortByDate')
-      .then((response) => response.json())
-      .then((data) => setContents(data))
-      .catch((error) => console.error('Error fetching content:', error));
+    const fetchContents = async () => {
+      try {
+        const response = await fetch('/api/content/getAllSortByDate');
+        const data = await response.json();
+        if (response.ok) {
+          setContents(data);
+        } else {
+          console.error('Failed to fetch contents:', data.message);
+        }
+      } catch (error) {
+        console.error('Error fetching contents:', error);
+      }
+    };
+
+    fetchContents();
   }, []);
 
   return (
-    <div style={styles.contentList}>
+    <div style={styles.grid}>
       {contents.map((content) => (
-        <ContentItem key={content.content_id} content={content} />
+        <div key={content.content_id} style={styles.card}>
+          <img
+            src={`/contents/${content.acc_id}/${content.content_id}.png`}
+            alt={content.content_title}
+            style={styles.image}
+          />
+          <h3>{content.content_title}</h3>
+        </div>
       ))}
     </div>
   );
 };
 
 const styles = {
-  contentList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '10px',
     padding: '20px',
+  },
+  card: {
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '10px',
+    textAlign: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 'auto',
+    borderRadius: '4px',
   },
 };
 

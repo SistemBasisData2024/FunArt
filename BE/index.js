@@ -24,6 +24,9 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+// Middleware to enable CORS
+app.use(cors());
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
