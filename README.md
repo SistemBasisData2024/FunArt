@@ -19,14 +19,14 @@ Follow the steps below to start developing the project:
    Open two terminals (ensure that the terminal paths are the same as the path for the cloned folder), open one for the server and one for the client. In the server terminal, run the following command:
 
    ```bash
-   cd server
+   cd ./BE/
    npm install
    ```
 
    In the client terminal, run the following command:
 
    ```bash
-   cd client
+   cd ./FE/
    npm install
    ```
 
@@ -35,14 +35,12 @@ Follow the steps below to start developing the project:
    In the server terminal, run the following command:
 
    ```bash
-   cd server
-   npm run start
+   node index
    ```
 
    In the client terminal, run the following command:
 
    ```bash
-   cd client
    npm run dev
    ```
 
@@ -53,3 +51,4 @@ Follow the steps below to start developing the project:
 ## Additional Information
 
 For a complete list of available APIs, visit the following link: [API](https://docs.google.com/spreadsheets/d/1kkk8PrsNgHSRTqGnsTj7RSbHlO0dJY79YoGiVjR3GGM/edit#gid=854642831)
+For a project documentations, visit the following lin: [Documentation](https://drive.google.com/drive/folders/13zTS4WExf1lOa73zLb9PEdcmSC5Z0L-v?usp=sharing)
