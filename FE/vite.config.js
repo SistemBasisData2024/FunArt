@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 // Access your environment variable
+// eslint-disable-next-line no-undef
 const apiBaseUrl = process.env.VITE_API_URL;
 
 export default defineConfig({
@@ -18,5 +19,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+    port: 4000, // Change this to your preferred port
   },
 });
