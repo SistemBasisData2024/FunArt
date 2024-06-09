@@ -2,17 +2,23 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from 'react-icons/fa';
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
+  const handleRegister = async (event) => {
     event.preventDefault();
 
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
     try {
-      const response = await fetch('/api/account/login', {
+      const response = await fetch('/api/account/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -22,20 +28,20 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        navigate('/home/');
+        navigate('/login/');
       } else {
-        setError('Invalid username or password');
+        setError('Registration failed');
       }
     } catch (error) {
-      console.error('Error logging in:', error);
-      setError('An error occurred while logging in');
+      console.error('Error registering:', error);
+      setError('An error occurred while registering');
     }
   };
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Login</h2>
-      <form onSubmit={handleLogin} style={styles.form}>
+      <h2 style={styles.heading}>Register</h2>
+      <form onSubmit={handleRegister} style={styles.form}>
         <div style={styles.inputGroup}>
           <FaUser style={styles.icon} />
           <input
@@ -58,14 +64,25 @@ const Login = () => {
             required
           />
         </div>
+        <div style={styles.inputGroup}>
+          <FaLock style={styles.icon} />
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
+            style={styles.input}
+            required
+          />
+        </div>
         {error && <div style={styles.error}>{error}</div>}
         <div style={styles.buttonContainer}>
           <button type="submit" style={styles.button}>
-            Login
+            Register
           </button>
         </div>
-        <p style={styles.registerText}>
-          Don't have an account yet? <Link to="/register" style={styles.registerLink}>Register</Link>
+        <p style={styles.loginText}>
+          Already have an account? <Link to="/login" style={styles.loginLink}>Login</Link>
         </p>
       </form>
     </div>
@@ -125,16 +142,16 @@ const styles = {
     color: 'red',
     marginBottom: '10px',
   },
-  registerText: {
+  loginText: {
     marginTop: '10px',
     textAlign: 'center',
     fontSize: '14px',
     color: '#666',
   },
-  registerLink: {
+  loginLink: {
     color: '#007bff',
     textDecoration: 'none',
   },
 };
 
-export default Login;
+export default Register;
