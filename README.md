@@ -51,4 +51,4 @@ Follow the steps below to start developing the project:
 ## Additional Information
 
 For a complete list of available APIs, visit the following link: [API](https://docs.google.com/spreadsheets/d/1kkk8PrsNgHSRTqGnsTj7RSbHlO0dJY79YoGiVjR3GGM/edit#gid=854642831)
-For a project documentations, visit the following lin: [Documentation](https://drive.google.com/drive/folders/13zTS4WExf1lOa73zLb9PEdcmSC5Z0L-v?usp=sharing)
+For a project documentations, visit the following link: [Documentation](https://drive.google.com/drive/folders/13zTS4WExf1lOa73zLb9PEdcmSC5Z0L-v?usp=sharing)
