@@ -72,7 +72,8 @@ CREATE TABLE public.content (
     tag text[],
     likes integer NOT NULL,
     comments_id character varying(6)[],
-    content_title text NOT NULL
+    content_title text NOT NULL,
+    uploaded_at timestamp without time zone NOT NULL
 );
 
 
@@ -98,6 +99,8 @@ ALTER TABLE public.content_comment OWNER TO "JianDB_owner";
 --
 
 COPY public.account (acc_id, acc_type, username, password, points, contents_id) FROM stdin;
+1ac053axc0	registered	hewsie	hewsie	100	{064ca5ds23}
+1234567890	guest	guest	guest	0	\N
 \.
 
 
@@ -105,7 +108,8 @@ COPY public.account (acc_id, acc_type, username, password, points, contents_id) 
 -- Data for Name: content; Type: TABLE DATA; Schema: public; Owner: JianDB_owner
 --
 
-COPY public.content (content_id, acc_id, content_type, content_desc, tag, likes, comments_id, content_title) FROM stdin;
+COPY public.content (content_id, acc_id, content_type, content_desc, tag, likes, comments_id, content_title, uploaded_at) FROM stdin;
+064ca5ds23	1ac053axc0	public	FanArt of Iofi from Hololive ID by Hewsie	{hololive,iofi,ID}	10	{a01c3d}	Iofi HoloID	2024-06-09 14:30:00
 \.
 
 
@@ -114,6 +118,7 @@ COPY public.content (content_id, acc_id, content_type, content_desc, tag, likes,
 --
 
 COPY public.content_comment (comment_id, acc_id, comment, replies_id, content_id) FROM stdin;
+a01c3d	1ac053axc0	Here it is~	\N	064ca5ds23
 \.
 
 
