@@ -5,6 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const moment = require('moment-timezone');
+const cors = require('cors');
 
 // const accountRepository = require('./repositories/repository.account');
 // const contentRepository = require('./repositories/repository.content');
@@ -81,7 +82,7 @@ app.post('/account/login', async (req, res) => {
       res.json(account);
     } else {
       // Wrong password
-      res.status(401).json({ message: 'The password is not correct' });
+      res.status(401).json({ message: 'The password is not correct'});
     }
   } catch (error) {
     console.error('Error executing query', error);
